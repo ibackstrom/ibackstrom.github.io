@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matrix MIR</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
         body {
             margin: 0;
             padding: 0;
@@ -26,19 +28,51 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 15vw;
-            font-weight: bold;
+            font-weight: 900;
+            font-family: 'Orbitron', monospace;
             color: #00ff00;
-            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
             z-index: 2;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.3em;
             text-align: center;
             opacity: 0.9;
+        }
+        
+        #contact-info {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00ff00;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2vw;
+            font-weight: 400;
+            text-align: center;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+            z-index: 2;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+        
+        #contact-info a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: 700;
+            text-shadow: 0 0 15px #00ff00;
+        }
+        
+        #contact-info a:hover {
+            text-shadow: 0 0 25px #00ff00, 0 0 35px #00ff00;
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <canvas id="matrix-canvas"></canvas>
     <div id="mir-text">MIR</div>
+            <div id="contact-info">
+        If you are interested in my game please <a href="mailto:laplanddream@gmail.com">mail me</a>.
+    </div>
 
     <script>
         const canvas = document.getElementById('matrix-canvas');
