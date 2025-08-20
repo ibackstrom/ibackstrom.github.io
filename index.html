@@ -3,55 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Website with Resizable Image</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <title>Matrix MIR</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #000000; /* Black background */
-            font-family: 'Orbitron', Arial, sans-serif;
-            color: #ffffff; /* White text for contrast */
+            background: #000;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
         }
-
-        .container {
+        
+        #matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        #mir-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15vw;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+            z-index: 2;
+            letter-spacing: 0.2em;
             text-align: center;
-            padding: 20px;
-        }
-
-        .resizable-image {
-            max-width: 100%;
-            height: auto;
-            resize: both;
-            overflow: auto;
-            border: 2px solid #ffffff; /* White border for contrast */
-            border-radius: 8px;
-        }
-
-        a {
-            color: #00ff00; /* Green for visibility on dark background */
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 600px) {
-            .resizable-image {
-                width: 90%;
-            }
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <p>If you are interested in my game please <a href="mailto:laplanddream@gmail.com">mail me</a>.</p>
-        <img src="Capsule.jpg" alt="Sample Image" class="resizable-image">
-    </div>
+    <canvas id="matrix-canvas"></canvas>
+    <div id="mir-text">MIR</div>
+
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Matrix characters (mix of katakana, latin, and numbers)
+        const chars = 'アカサタナハマヤラワガザダバパイキシチニヒミリヰギジヂビピウクスツヌフムユルグズヅブプエケセテネヘメレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const charArray = chars.split('');
+
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+
+        // Initialize drops
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+        }
+
+        function draw() {
+            // Semi-transparent black background for fade effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px Courier New';
+
+            for (let i = 0; i < drops.length; i++) {
+                // Pick random character
+                const char = charArray[Math.floor(Math.random() * charArray.length)];
+                
+                // Draw character
+                ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+                // Reset drop to top randomly or when it reaches bottom
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Animation loop
+        setInterval(draw, 50);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            const newColumns = Math.floor(canvas.width / fontSize);
+            drops.length = newColumns;
+            for (let i = 0; i < newColumns; i++) {
+                if (drops[i] === undefined) {
+                    drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
