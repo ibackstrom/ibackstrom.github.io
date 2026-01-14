@@ -3,20 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Image</title>
+    <title>IMRY_Web Background</title>
+    
+    <!-- Robotic font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
     <style>
         html, body {
             height: 100%;
             margin: 0;
+            font-family: 'Orbitron', sans-serif;
         }
+
         body {
             background-image: url('IMRY_Web.jpg');
-            background-size: cover;       /* Makes the image cover the entire screen */
-            background-position: center;  /* Centers the image */
-            background-repeat: no-repeat; /* Prevents tiling */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* bottom alignment */
+        }
+
+        .contact {
+            color: #00ffea; /* neon-style color */
+            font-size: 1.5rem;
+            margin-bottom: 30px; /* distance from bottom */
+            text-shadow: 0 0 5px #00ffea, 0 0 10px #00ffea, 0 0 20px #00ffea;
+        }
+
+        @media (max-width: 600px) {
+            .contact {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="contact">contact me: <a href="mailto:IMRYGAME@proton.me" style="color:#00ffea; text-decoration:none;">IMRYGAME@proton.me</a></div>
 </body>
 </html>
