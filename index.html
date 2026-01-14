@@ -3,139 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix MIR</title>
+    <title>Background Image</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        
-        body {
+        html, body {
+            height: 100%;
             margin: 0;
-            padding: 0;
-            background: #000;
-            overflow: hidden;
-            font-family: 'Courier New', monospace;
         }
-        
-        #matrix-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        
-        #mir-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 15vw;
-            font-weight: 900;
-            font-family: 'Orbitron', monospace;
-            color: #00ff00;
-            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
-            z-index: 2;
-            letter-spacing: 0.3em;
-            text-align: center;
-            opacity: 0.9;
-        }
-        
-        #contact-info {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #00ff00;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2vw;
-            font-weight: 400;
-            text-align: center;
-            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-            z-index: 2;
-            opacity: 0.8;
-            line-height: 1.5;
-        }
-        
-        #contact-info a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: 700;
-            text-shadow: 0 0 15px #00ff00;
-        }
-        
-        #contact-info a:hover {
-            text-shadow: 0 0 25px #00ff00, 0 0 35px #00ff00;
-            opacity: 1;
+        body {
+            background-image: url('IMRY_Web.jpg');
+            background-size: cover;       /* Makes the image cover the entire screen */
+            background-position: center;  /* Centers the image */
+            background-repeat: no-repeat; /* Prevents tiling */
         }
     </style>
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
-    <div id="mir-text">MIR</div>
-            <div id="contact-info">
-        If you are interested in my game please <a href="mailto:laplanddream@gmail.com">mail me</a>.
-    </div>
-
-    <script>
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-
-        // Set canvas size
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        // Matrix characters (mix of katakana, latin, and numbers)
-        const chars = 'アカサタナハマヤラワガザダバパイキシチニヒミリヰギジヂビピウクスツヌフムユルグズヅブプエケセテネヘメレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        const charArray = chars.split('');
-
-        const fontSize = 16;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = [];
-
-        // Initialize drops
-        for (let i = 0; i < columns; i++) {
-            drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
-        }
-
-        function draw() {
-            // Semi-transparent black background for fade effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00ff00';
-            ctx.font = fontSize + 'px Courier New';
-
-            for (let i = 0; i < drops.length; i++) {
-                // Pick random character
-                const char = charArray[Math.floor(Math.random() * charArray.length)];
-                
-                // Draw character
-                ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-
-                // Reset drop to top randomly or when it reaches bottom
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        // Animation loop
-        setInterval(draw, 50);
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            const newColumns = Math.floor(canvas.width / fontSize);
-            drops.length = newColumns;
-            for (let i = 0; i < newColumns; i++) {
-                if (drops[i] === undefined) {
-                    drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
-                }
-            }
-        });
-    </script>
 </body>
 </html>
